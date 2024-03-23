@@ -2,14 +2,26 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
 import Constants from "expo-constants";
+import pTimeout from "p-timeout";
 
 const getText = async () => {
+  // Para obtener la IP de la red actual, para no copiar y pegar la IP
   const debuggerHost = Constants.expoConfig?.hostUri;
   const ip = debuggerHost?.split(":")[0];
 
-  const result = await fetch(`http://${ip}:5000`);
-  const resultJson = await result.json();
-  return resultJson.message;
+  try {
+    const result = await pTimeout(fetch(`http://${ip}:5000`), {
+      milliseconds: 2000,
+    });
+
+    if (result.ok) {
+      const resultJson = await result.json();
+      return resultJson.message;
+    }
+    return "Not ok error";
+  } catch (error) {
+    return "Error catch";
+  }
 };
 
 export default function App() {
@@ -17,11 +29,7 @@ export default function App() {
 
   React.useEffect(() => {
     const getExample = async () => {
-      try {
-        setApiText(await getText());
-      } catch (error) {
-        console.error("Error", error);
-      }
+      await getText();
     };
 
     void getExample();

@@ -1,6 +1,7 @@
 import express from "express";
 import os from "node:os";
 
+// Obtener mi IP privado
 function getPrivateIP() {
   const interfaces = os.networkInterfaces();
   for (let iface in interfaces) {
@@ -18,7 +19,10 @@ const port = 5000;
 const host = getPrivateIP();
 
 app.get("/", (req, res) => {
-  res.send({ message: "Holi!" });
+  res.send({
+    message: "Qué dicha que hay vacaciones",
+    test: "hola mundo!!!!!",
+  });
 });
 
 app.listen(port, host, () => {
