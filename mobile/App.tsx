@@ -29,7 +29,7 @@ export default function App() {
 
   React.useEffect(() => {
     const getExample = async () => {
-      await getText();
+      setApiText(await getText());
     };
 
     void getExample();
