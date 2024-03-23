@@ -18,7 +18,7 @@ const port = 5000;
 const host = getPrivateIP();
 
 app.get("/", (req, res) => {
-  res.send({ message: "Jaja" });
+  res.send({ message: "Holi!" });
 });
 
 app.listen(port, host, () => {

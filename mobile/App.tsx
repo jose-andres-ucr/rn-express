@@ -1,6 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import Constants from "expo-constants";
 
 const getText = async () => {
@@ -31,6 +31,10 @@ export default function App() {
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app</Text>
       <Text>Texto desde API: {apiText}</Text>
+      <Button
+        title="Refresh"
+        onPress={async () => setApiText(await getText())}
+      />
       <StatusBar style="auto" />
     </View>
   );
